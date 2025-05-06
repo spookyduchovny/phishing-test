@@ -26,6 +26,9 @@ startBtn.addEventListener('click', () => {
 
 // Håndter scenario
 const checkAnswer = (e) => {
+    const userAnswer = e.target.textContent;
+    localStorage.setItem('userAnswer', userAnswer);
+    console.log('Brugerens svar var:', userAnswer);
     // Hide all feedback boxes
     feedback.forEach(box => {
         box.style.display = 'none'; // Hide feedback
@@ -43,16 +46,16 @@ const checkAnswer = (e) => {
     switch (e.target.id) {
         case 'c1':
           case 'c1':
-            document.querySelector('#c1-f').style.display = 'block'; // Show feedback for Scenario 1
+            document.querySelector('#c1-f').style.display = 'flex'; // Show feedback for Scenario 1
             restartBtn.style.display = 'block'; // Show the restart button (added this line)
             break;
         case 'c2':
-            scenario2Description.style.display = 'block'; // Show Scenario 2 description
+            scenario2Description.style.display = 'flex'; // Show Scenario 2 description
             document.getElementById('c4').style.display = 'block'; // Show Choice 4
             document.getElementById('c5').style.display = 'block'; // Show Choice 5
             break;
         case 'c3':
-            scenario3Description.style.display = 'block'; // Show Scenario 3 description
+            scenario3Description.style.display = 'flex'; // Show Scenario 3 description
             document.getElementById('c6').style.display = 'block'; // Show Choice 6
             document.getElementById('c7').style.display = 'block'; // Show Choice 7
             break;
@@ -62,6 +65,7 @@ const checkAnswer = (e) => {
     }
 };
 
+
 // Add event listeners to the main scenario buttons
 btns.forEach(btn => {
     btn.addEventListener('click', checkAnswer);
@@ -70,7 +74,8 @@ btns.forEach(btn => {
 // Handle additional choices for Scenario 2 and 3
 const handleChoiceFeedback = (choiceId) => {
 
-interaction.style.display = 'none';
+    scenario2Description.style.display = 'none';
+    scenario3Description.style.display = 'none';
 
   feedback.forEach(box => {
       box.style.display = 'none'; // Hide all feedback
@@ -78,9 +83,6 @@ interaction.style.display = 'none';
 
   document.querySelector(`#${choiceId}-f`).style.display = 'flex'; // Show feedback for the selected choice
   restartBtn.style.display = 'block'; // Show the restart button
-  additionalChoices.style.display = 'none'; // Hide additional choices
-  scenario2Description.style.display = 'none'; // Hide Scenario 2 description if it was shown
-  scenario3Description.style.display = 'none'; // Hide Scenario 3 description if it was shown
 };
 
 // Event listeners for additional choices
@@ -104,7 +106,7 @@ restartBtn.addEventListener('click', () => {
   restartBtn.style.display = 'none'; // Ensure this line is executed
 
   // Reset scenario descriptions and buttons
-  scenarioDescription.style.display = 'block'; // Show original scenario description
+  scenarioDescription.style.display = 'flex'; // Show original scenario description
   scenario2Description.style.display = 'none'; // Hide additional choices
   scenario3Description.style.display = 'none'; // Hide additional choices
 
