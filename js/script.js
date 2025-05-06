@@ -6,7 +6,6 @@ const quizScreen = document.getElementById('quizScreen');
 const startBtn = document.getElementById('startBtn');
 const feedback = document.querySelectorAll('.feedback');
 const btns = document.querySelectorAll('.interaction-area .btn-scenario');
-const additionalChoices = document.getElementById('additionalChoices');
 const scenarioDescription = document.getElementById('scenarioDescription');
 const scenario2Description = document.getElementById('scenario2Description');
 const scenario3Description = document.getElementById('scenario3Description');
@@ -15,6 +14,7 @@ const scenario3Description = document.getElementById('scenario3Description');
 startBtn.addEventListener('click', () => {
   startScreen.classList.add('hidden');
   quizScreen.classList.remove('hidden');
+  interaction.style.display = 'flex';
 
   // Show the scenario buttons (c1, c2, c3)
   btns.forEach(btn => {
@@ -48,13 +48,11 @@ const checkAnswer = (e) => {
             break;
         case 'c2':
             scenario2Description.style.display = 'block'; // Show Scenario 2 description
-            additionalChoices.style.display = 'block'; // Show additional choices
             document.getElementById('c4').style.display = 'block'; // Show Choice 4
             document.getElementById('c5').style.display = 'block'; // Show Choice 5
             break;
         case 'c3':
             scenario3Description.style.display = 'block'; // Show Scenario 3 description
-            additionalChoices.style.display = 'block'; // Show additional choices
             document.getElementById('c6').style.display = 'block'; // Show Choice 6
             document.getElementById('c7').style.display = 'block'; // Show Choice 7
             break;
@@ -71,10 +69,14 @@ btns.forEach(btn => {
 
 // Handle additional choices for Scenario 2 and 3
 const handleChoiceFeedback = (choiceId) => {
+
+interaction.style.display = 'none';
+
   feedback.forEach(box => {
       box.style.display = 'none'; // Hide all feedback
   });
-  document.querySelector(`#${choiceId}-f`).style.display = 'block'; // Show feedback for the selected choice
+
+  document.querySelector(`#${choiceId}-f`).style.display = 'flex'; // Show feedback for the selected choice
   restartBtn.style.display = 'block'; // Show the restart button
   additionalChoices.style.display = 'none'; // Hide additional choices
   scenario2Description.style.display = 'none'; // Hide Scenario 2 description if it was shown
@@ -103,7 +105,8 @@ restartBtn.addEventListener('click', () => {
 
   // Reset scenario descriptions and buttons
   scenarioDescription.style.display = 'block'; // Show original scenario description
-  additionalChoices.style.display = 'none'; // Hide additional choices
+  scenario2Description.style.display = 'none'; // Hide additional choices
+  scenario3Description.style.display = 'none'; // Hide additional choices
 
   // Show only the start button
   startBtn.style.display = 'inline-block'; // Show the start button

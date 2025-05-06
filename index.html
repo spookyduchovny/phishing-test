@@ -52,24 +52,25 @@
       </div>
 
       <!-- Right: Scenario Buttons -->
-      <div class="interaction-area">
+      <div id="interaction" class="interaction-area">
           <div id="scenarioDescription" class="scenario-description">
               Du har modtaget denne e-mail fra Nordea. Hvad gør du?
-          </div>
           <button class="btn-scenario" id="c1">Jeg markerer mailen som spam.</button>
           <button class="btn-scenario" id="c2">Jeg trykker på linket i mailen.</button>
           <button class="btn-scenario" id="c3">Jeg ringer til telefon nummeret der står i mailen.</button>
-          <div id="additionalChoices" class="hidden">
+        </div>
               <div id="scenario2Description" class="scenario-description hidden">
                 Du vælger at klikke på linket i mailen for at logge ind og finde ud af, hvad der sker med din konto. Hjemmesiden's URL er www.nordea-kundeservice.com, og har Nordea's Logo i toppen. Hvad gør du?
-              </div>
+              
               <button class="btn-scenario" id="c4">Jeg indtaster mine login-oplysinger på siden.</button>
               <button class="btn-scenario" id="c5">Jeg lukker siden ned.</button>
+            </div>
               <div id="scenario3Description" class="scenario-description hidden">
                 Du vælger at ringe til det telefonnummer, der står i mailen. Personen i den anden ende siger, at de er fra banken. De spørger efter følsomme og personlige oplysninger såsom dit CPR-nummer og dit kontonummer. Hvad gør du?
-              </div>
               <button class="btn-scenario" id="c6">Jeg giver dem mine oplysninger, så de bedre kan hjælpe mig.</button>
               <button class="btn-scenario" id="c7">Jeg lægger på og finder Nordea's hjemmeside, så jeg kan ringe til deres hovednummer.</button>
+            </div>
+            
           </div>
           <!-- Feedback Sections moved inside interaction-area -->
           <div id="c1-f" class="feedback">✅ Rigtigt valg. Banker sender aldrig e-mails med links du skal klikke på for at genaktivere konti. Ved at markere den som spam hjælper du også dit mailprogram med at fange lignende svindel i fremtiden.</div>

@@ -61,10 +61,6 @@ nav a {
   padding: 2rem;
 }
 
-.hidden {
-  display: none;
-}
-
 .quiz-container {
   display: flex;
   flex-direction: row;
@@ -102,6 +98,8 @@ nav a {
 }
 
 #feedback {
+  display: flex;
+  text-align: center;
   font-size: 1.2rem;
   padding: 1rem;
   background-color: #e0f2fe;
@@ -153,6 +151,11 @@ nav a {
 /* Scenarios */
 .scenario-description {
   display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
 }
 
 /* E-mail */
