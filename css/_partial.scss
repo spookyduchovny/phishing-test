@@ -1,0 +1,22 @@
+$primary-color: #fff6c5;
+$btn-color: lightblue;
+$footer-color: blue;
+$background-color: white;
+$font-color: #333;
+$heading-font: 'Raleway', sans-serif;
+$paragraph-font: 'Open Sans', sans-serif;
+$padding-normal: 1.5em;
+
+/*mixins*/
+
+@mixin btn($bg-color:$btn-color, $text-color:#fff){
+    background-color: $bg-color;
+    color: $text-color;
+    padding: 0.8em;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 8px;
+    width: 70vw;
+    display: block;
+    margin: 0 auto 1.5em auto;
+}
