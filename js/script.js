@@ -1,120 +1,112 @@
-'use strict';
+'use strict'; // Aktiverer "strict" tilstand, som hjælper med at fange fejl og forhindrer brug af udefinerede variabler.
 
-// HTML-elementer
-const startScreen = document.getElementById('startScreen');
-const quizScreen = document.getElementById('quizScreen');
-const startBtn = document.getElementById('startBtn');
-const feedback = document.querySelectorAll('.feedback');
-const btns = document.querySelectorAll('.interaction-area .btn-scenario');
-const scenarioDescription = document.getElementById('scenarioDescription');
-const scenario2Description = document.getElementById('scenario2Description');
-const scenario3Description = document.getElementById('scenario3Description');
+// Henter HTML-elementer fra dokumentet og gemmer dem i variabler
+const startScreen = document.getElementById('startScreen'); // Startskærmen 
+const quizScreen = document.getElementById('quizScreen');   // Quizskærmen 
+const startBtn = document.getElementById('startBtn');       // "Start testen"-knappen
+const feedback = document.querySelectorAll('.feedback');    // Alle feedback-beskeder
+const btns = document.querySelectorAll('.interaction-area .btn-scenario'); // Svar-knapperne
+const scenarioDescription = document.getElementById('scenarioDescription'); // Første scenarie
+const scenario2Description = document.getElementById('scenario2Description'); // Andet scenarie
+const scenario3Description = document.getElementById('scenario3Description'); // Tredje scenarie
+const restartBtn = document.getElementById('restartBtn');   // "Tag testen igen"-knappen
+const interaction = document.getElementById('interaction'); // Området hvor quiz foregår
 
-// Start knap event listener
+// Når brugeren klikker på start-knappen:
 startBtn.addEventListener('click', () => {
-  startScreen.classList.add('hidden');
-  quizScreen.classList.remove('hidden');
-  interaction.style.display = 'flex';
+  startScreen.classList.add('hidden'); // Skjul startskærmen ved at tilføje class "hidden"
+  quizScreen.classList.remove('hidden'); // Vis quizskærmen ved at fjerne class "hidden"
+  interaction.style.display = 'flex'; // Sørg for at interaktionsområdet vises
 
-  // Show the scenario buttons (c1, c2, c3)
+  // Gør alle svar-knapper synlige og skjuler restart-knappen
   btns.forEach(btn => {
-      btn.style.display = 'inline-block'; // Show main buttons
-      restartBtn.style.display = 'none'; // Hide the restart button
+    btn.style.display = 'inline-block';
+    restartBtn.style.display = 'none'; 
   });
 });
 
-
-// Håndter scenario
+// Funktion til at håndtere brugerens valg (hvilken knap de klikker på)
 const checkAnswer = (e) => {
-    const userAnswer = e.target.textContent;
-    localStorage.setItem('userAnswer', userAnswer);
-    console.log('Brugerens svar var:', userAnswer);
-    // Hide all feedback boxes
-    feedback.forEach(box => {
-        box.style.display = 'none'; // Hide feedback
-    });
+  const choiceId = e.target.id; // ID'et på knappen der blev klikket
+  const userAnswer = e.target.textContent; // Teksten på det valgte svar
 
-    // Hide all main buttons
-    btns.forEach(btn => {
-        btn.style.display = 'none'; // Hide main buttons
-    });
+  // Gem brugerens valg i browserens localStorage
+  localStorage.setItem('userAnswer', userAnswer); //Brugerens text svar bliver gemt i localStorage så de kan se hvad de har valgt i console.
+  localStorage.setItem('lastChoice', choiceId); //Her sættes lastChoice til at være choiceId fra switchen, hvilket bliver brugt til sidst til at recalle hvor brugeren var nået til i quizzen hvis de forlader siden.
+  console.log('Brugerens svar var:', userAnswer); // Udskriv brugerens seneste svar i console.
+  
+  // Nulstil visning: Skjul feedback og alle scenarier - bruges bl.a. for at sikre at elementer ikke bliver vist efter en genstart af testen.
+  feedback.forEach(box => box.style.display = 'none');
+  scenarioDescription.style.display = 'none';
+  scenario2Description.style.display = 'none';
+  scenario3Description.style.display = 'none';
+  btns.forEach(btn => btn.style.display = 'none');
 
-    // Hide the original scenario description
-    scenarioDescription.style.display = 'none'; // Hide original scenario description
-
-    // Show feedback or additional choices based on the button clicked
-    switch (e.target.id) {
-        case 'c1':
-          case 'c1':
-            document.querySelector('#c1-f').style.display = 'flex'; // Show feedback for Scenario 1
-            restartBtn.style.display = 'block'; // Show the restart button (added this line)
-            break;
-        case 'c2':
-            scenario2Description.style.display = 'flex'; // Show Scenario 2 description
-            document.getElementById('c4').style.display = 'block'; // Show Choice 4
-            document.getElementById('c5').style.display = 'block'; // Show Choice 5
-            break;
-        case 'c3':
-            scenario3Description.style.display = 'flex'; // Show Scenario 3 description
-            document.getElementById('c6').style.display = 'block'; // Show Choice 6
-            document.getElementById('c7').style.display = 'block'; // Show Choice 7
-            break;
-        default:
-            console.log("Error: Ugyldigt valg!"); // Log error if the ID does not match
-            break;
-    }
+  // Bestem hvilket scenarie eller hvilken feedback der skal vises
+  switch (choiceId) {
+    case 'c1':
+      document.querySelector('#c1-f').style.display = 'flex'; // Vis feedback for korrekt svar
+      restartBtn.style.display = 'block'; // Vis "Tag testen igen"-knappen
+      localStorage.clear(); // Ryd localStorage for at forhindre uønsket redirect ved refresh
+      console.log('LocalStorage ryddet'); // Debug-information
+      break;
+    case 'c2':
+      scenario2Description.style.display = 'flex'; // Vis næste trin i scenariet
+      document.getElementById('c4').style.display = 'block'; // Vis svarmulighed
+      document.getElementById('c5').style.display = 'block'; // Vis svarmulighed
+      break;
+    case 'c3':
+      scenario3Description.style.display = 'flex'; // Vis tredje scenarie
+      document.getElementById('c6').style.display = 'block'; // Vis svarmulighed
+      document.getElementById('c7').style.display = 'block'; // Vis svarmulighed
+      break;
+      //Hvis svaret er nogle af de følgende viser den tilsvarende feedback.
+    case 'c4':
+    case 'c5':
+    case 'c6':
+    case 'c7':
+      document.querySelector(`#${choiceId}-f`).style.display = 'flex'; // Vis korrekt feedback til valget
+      restartBtn.style.display = 'block'; // Giv mulighed for at tage testen igen
+      localStorage.clear(); // Fjern tidligere valg fra localStorage
+      console.log('LocalStorage ryddet'); // Debug-information
+      break;
+    default:
+      console.log("Ugyldigt valg"); // En default der bruges hvis der opstår fejl med ID'er. God at have med generelt, især hvis man senere tilføjer flere scenarier.
+  }
 };
 
-
-// Add event listeners to the main scenario buttons
-btns.forEach(btn => {
-    btn.addEventListener('click', checkAnswer);
+// Tilføj klik-funktionalitet til hver af de syv svar-knapper
+['c1','c2','c3','c4','c5','c6','c7'].forEach(id => {
+  const btn = document.getElementById(id);
+  if (btn) btn.addEventListener('click', checkAnswer); // Knap aktiveres til at køre checkAnswer
 });
 
-// Handle additional choices for Scenario 2 and 3
-const handleChoiceFeedback = (choiceId) => {
-
-    scenario2Description.style.display = 'none';
-    scenario3Description.style.display = 'none';
-
-  feedback.forEach(box => {
-      box.style.display = 'none'; // Hide all feedback
-  });
-
-  document.querySelector(`#${choiceId}-f`).style.display = 'flex'; // Show feedback for the selected choice
-  restartBtn.style.display = 'block'; // Show the restart button
-};
-
-// Event listeners for additional choices
-document.getElementById('c4').addEventListener('click', () => handleChoiceFeedback('c4'));
-document.getElementById('c5').addEventListener('click', () => handleChoiceFeedback('c5'));
-document.getElementById('c6').addEventListener('click', () => handleChoiceFeedback('c6'));
-document.getElementById('c7').addEventListener('click', () => handleChoiceFeedback('c7'));
-
-// Restart the quiz
+// Når brugeren klikker på "Tag testen igen"-knappen:
 restartBtn.addEventListener('click', () => {
-  // Hide the quiz screen and show the start screen
-  quizScreen.classList.add('hidden');
-  startScreen.classList.remove('hidden');
+  quizScreen.classList.add('hidden'); // Skjul quiz-skærmen
+  startScreen.classList.remove('hidden'); // Vis startskærmen
 
-  // Reset all elements to their initial state
-  feedback.forEach(box => {
-      box.style.display = 'none'; // Hide all feedback
-  });
+  // Skjul alle feedbacks
+  feedback.forEach(box => box.style.display = 'none'); //Sikrer at feedback ikke bliver skjulet i tilfælde af at man gentager testen.
+  restartBtn.style.display = 'none'; // Skjul "Tag testen igen"-knappen
 
-  // Hide the restart button
-  restartBtn.style.display = 'none'; // Ensure this line is executed
-
-  // Reset scenario descriptions and buttons
-  scenarioDescription.style.display = 'flex'; // Show original scenario description
-  scenario2Description.style.display = 'none'; // Hide additional choices
-  scenario3Description.style.display = 'none'; // Hide additional choices
-
-  // Show only the start button
-  startBtn.style.display = 'inline-block'; // Show the start button
+  // Genskab startscenariet
+  scenarioDescription.style.display = 'flex';
+  scenario2Description.style.display = 'none';
+  scenario3Description.style.display = 'none';
 });
 
-// Ensure that the feedback elements are hidden initially
-feedback.forEach(box => {
-    box.style.display = 'none'; // Hide all feedback elements on page load
+// Når siden indlæses, skjules al feedback
+feedback.forEach(box => box.style.display = 'none');
+
+// Tjek om brugeren tidligere har valgt noget, og genskab det
+document.addEventListener('DOMContentLoaded', () => {
+  const lastChoice = localStorage.getItem('lastChoice'); // Her gøres last choice til en constant variabel
+  if (lastChoice) {
+    const btn = document.getElementById(lastChoice); // Find knappen
+    if (btn) {
+      // Simuler klik på den gemte knap for at vise feedback direkte
+      checkAnswer({ target: btn });
+    }
+  }
 });

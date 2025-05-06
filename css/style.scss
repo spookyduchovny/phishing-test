@@ -7,37 +7,28 @@ body {
   box-sizing: border-box;
   font-family: partial.$paragraph-font;
   background-color: partial.$background-color;
-  color: #00ff00;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: partial.$heading-font;
-  font-weight: 300;
-  text-align: center;
-  padding: partial.$padding-normal;
-  color: #39ff14;
-  text-shadow: 0 0 5px #39ff14;
+  color: partial.$green-neon;
 }
 
 h1 {
-  font-size: 2.3em;
+  @include heading-style(2.3em, partial.$green-neon);
 }
 
 h2 {
-  font-size: 1.8em;
+  @include heading-style(1.8em, partial.$green-neon);
+}
+
+h3, h4, h5, h6 {
+  @include heading-style(1.3em);
 }
 
 p {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: partial.$side-margin;
+  margin-right: partial.$side-margin;
 }
 
 .brodtekst {
   padding: partial.$padding-normal;
-}
-
-img {
-  max-width: 100%;
 }
 
 /* HEADER/NAVIGATION STYLING */
@@ -48,13 +39,12 @@ nav {
   a {
     text-decoration: none;
     font-size: 2em;
-    color: black;
     font-family: partial.$heading-font;
     font-weight: bold;
     margin-left: 2%;
     margin-top: 2%;
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00;
+    color: partial.$green-neon;
+    text-shadow: 0 0 5px partial.$green-neon;
   }
 }
 
@@ -68,6 +58,7 @@ nav {
 }
 
 .quiz-container {
+  @include box-style(partial.$background-color, partial.$green-neon, 12px);
   display: flex;
   flex-direction: row;
   gap: 2rem;
@@ -75,24 +66,6 @@ nav {
   max-width: 1200px;
   margin: 0;
   font-family: sans-serif;
-  background-color: partial.$primary-color;
-  border: 2px solid #00ff00;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 0 10px #00ff00;
-}
-
-.message-box {
-  flex: 0 0 30%;
-  border-radius: 16px;
-  aspect-ratio: 9/16;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  background-color: #0a0a0a;
-  color: #00ff00;
-  box-shadow: 0 0 10px #00ff00;
 }
 
 .interaction-area {
@@ -109,56 +82,51 @@ nav {
 }
 
 #feedback {
+  @include box-style(partial.$background-color, partial.$green-neon, 8px);
   display: flex;
   text-align: center;
   font-size: 1.2rem;
   padding: 1rem;
-  background-color: #001100;
-  border: 1px solid #00ff00;
-  color: #39ff14;
+  color: partial.$green-soft;
   border-radius: 8px;
   margin-top: 1rem;
   
 }
 
-.feedback p{
-  margin-bottom: 10%;
+.feedback p{ //Giver luft i feedback
+  margin-bottom: 8%;
+}
+
+.wrong{ //Ved forkert svar farves teksten rød
+  color: red;
 }
 
 /* Knapper */
 .btn-scenario {
-  padding: 0.8rem 1.5rem;
-  margin: 0.5rem 0;
+  @include btn($bg-color: partial.$background-color, $text-color: partial.$green-neon, $padding: 0.8rem 1.5rem, $radius: 8px);
   font-size: 1rem;
-  border: 1px solid #00ff00;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #00ff00;
-  background-color: #0a0a0a;
-  transition: background-color 0.2s ease, box-shadow 0.2s;
-  text-shadow: 0 0 3px #00ff00;
+  margin: 0.5rem 0;
+  border: 1px solid partial.$green-neon;
+  text-shadow: 0 0 3px partial.$green-neon;
 }
 
 .btn-scenario:hover {
   background-color: #003300;
-  box-shadow: 0 0 10px #00ff00;
+  box-shadow: 0 0 10px partial.$green-neon;
 }
 
 .read-btn {
-  @include partial.btn(darkgreen);
-  color: #fff;
-  text-decoration: none;
-  text-align: center;
-  border-radius: 8px;
-  width: 70vw;
-  display: block;
-  margin: 0 auto 1.5em auto;
-}
+    @include btn($bg-color: darkgreen, $text-color: #fff, $padding: 0.8rem);
+    text-decoration: none;
+    text-align: center;
+    width: 70vw;
+    display: block;
+    margin: 0 auto 1.5em auto;
+  }
 
-#restartBtn {
-  background-color: #2196f3;
-  color: white;
-}
+  #restartBtn {
+    @include btn($bg-color: #2196f3, $text-color: white, $padding: 0.8rem 1.5rem);
+  }
 
 /* Scenarios */
 .scenario-description{
@@ -167,7 +135,7 @@ nav {
 }
 
 .scenario-description p{
-  margin-bottom: 10%;
+  margin-bottom: 8%;
 }
 
 .hidden {
@@ -176,14 +144,11 @@ nav {
 
 /* E-mail */
 .email-screen {
+  @include box-style(#e5e7eb, partial.$green-neon, 20px);
   width: 90%;
   max-width: 260px;
   aspect-ratio: 1/2;
-  background-color: white;
   color: black;
-  box-shadow: 0 4px 12px #00ff00;
-  border: 1px solid #00ff00;
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -251,20 +216,25 @@ nav {
 
 /* Lær mere siden */
 .container {
-  max-width: 800px;
+  @include box-style(partial.$background-color, partial.$green-neon, 12px);
+  max-width: 70%;
   margin: 5% auto;
   padding: 2rem;
-  border-radius: 12px;
-  background-color: #0a0a0a;
-  box-shadow: 0 0 10px #00ff00;
+  font-size: 1.2em;
 
-  h1, h2 {
-  color: #00ff00;
+  h1 {
+  @include heading-style(2.3em, partial.$green-neon);
+  }
+
+h2{
+  @include heading-style(1.8em, partial.$green-neon);
 }
 
 
   ul {
     padding-left: 1.5rem;
+    margin-left: partial.$side-margin;
+    margin-right: partial.$side-margin;
   }
 
   p {
@@ -280,9 +250,9 @@ nav {
   position: fixed;
   top: 1rem;
   left: 1rem;
-  background-color: #002200;
-  color: #00ff00;
-  box-shadow: 0 2px 6px #00ff00;
+  background-color: partial.$background-color;
+  color: partial.$green-neon;
+  box-shadow: 0 2px 6px partial.$green-neon;
   padding: 0.6em 1em;
   border: none;
   border-radius: 8px;
@@ -296,16 +266,11 @@ nav {
   margin-right: 0.4em;
 }
 
-/* Responsive adjustments */
+/* Responsivitet */
 @media (max-width: 768px) {
   .quiz-container {
     flex-direction: column;
     align-items: center;
-  }
-
-  .message-box {
-    width: 100%;
-    aspect-ratio: 9/16;
   }
 
   .interaction-area {

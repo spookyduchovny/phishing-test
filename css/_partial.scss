@@ -1,24 +1,52 @@
-$background-color: #000000;
-$primary-color: #0f0f0f;
+//Farver
+$background-color: #0a0a0a;
+$green-neon: #00ff00;
+$green-soft: #39ff14;
+$shadow-color: $green-soft;
+$border-color: $green-neon;
+
+//Typografi
 $heading-font: 'Courier New', monospace;
 $paragraph-font: 'Courier New', monospace;
+
+//Paddings, Margins og lign.
 $padding-normal: 1rem;
-$btn-color: lightblue;
-$footer-color: blue;
-$font-color: #333;
-
-
+$side-margin: 10%;
+$btn-radius: 8px;
 
 /*mixins*/
 
-@mixin btn($bg-color:$btn-color, $text-color:#fff){
+@mixin btn($bg-color: $green-neon, $text-color: $text-light, $padding: 0.8rem, $radius: $btn-radius) {
     background-color: $bg-color;
     color: $text-color;
-    padding: 0.8em;
-    text-decoration: none;
+    padding: $padding;
+    border-radius: $btn-radius;
     text-align: center;
-    border-radius: 8px;
-    width: 70vw;
-    display: block;
-    margin: 0 auto 1.5em auto;
-}
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    text-shadow: 0 0 5px $bg-color;
+    
+    &:hover {
+      background-color: darken($bg-color, 10%);
+      box-shadow: 0 0 10px $bg-color;
+    }
+  }
+
+@mixin heading-style($size, $shadow-color: $green-soft) {
+    font-family: $heading-font;
+    font-weight: 300;
+    text-align: center;
+    padding: $padding-normal;
+    color: $shadow-color;
+    text-shadow: 0 0 5px $shadow-color;
+    font-size: $size;
+  }
+
+  @mixin box-style($bg-color, $border-color, $radius: $btn-radius, $shadow-color: $green-neon) {
+    background-color: $bg-color;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+    box-shadow: 0 0 10px $shadow-color;
+  }
