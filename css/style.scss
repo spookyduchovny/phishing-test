@@ -11,15 +11,15 @@ body {
 }
 
 h1 {
-  @include heading-style(2.3em, partial.$green-neon);
+  @include partial.heading-style(2.3em);
 }
 
 h2 {
-  @include heading-style(1.8em, partial.$green-neon);
+  @include partial.heading-style(1.8em);
 }
 
 h3, h4, h5, h6 {
-  @include heading-style(1.3em);
+  @include partial.heading-style(1.3em);
 }
 
 p {
@@ -58,7 +58,7 @@ nav {
 }
 
 .quiz-container {
-  @include box-style(partial.$background-color, partial.$green-neon, 12px);
+  @include partial.box-style(partial.$background-color, partial.$green-neon, 12px);
   display: flex;
   flex-direction: row;
   gap: 2rem;
@@ -82,7 +82,7 @@ nav {
 }
 
 #feedback {
-  @include box-style(partial.$background-color, partial.$green-neon, 8px);
+  @include partial.box-style(partial.$background-color, partial.$green-neon, 8px);
   display: flex;
   text-align: center;
   font-size: 1.2rem;
@@ -103,7 +103,7 @@ nav {
 
 /* Knapper */
 .btn-scenario {
-  @include btn($bg-color: partial.$background-color, $text-color: partial.$green-neon, $padding: 0.8rem 1.5rem, $radius: 8px);
+  @include partial.btn($bg-color: partial.$background-color, $text-color: partial.$green-neon, $padding: 0.8rem 1.5rem, $radius: 8px);
   font-size: 1rem;
   margin: 0.5rem 0;
   border: 1px solid partial.$green-neon;
@@ -116,7 +116,7 @@ nav {
 }
 
 .read-btn {
-    @include btn($bg-color: darkgreen, $text-color: #fff, $padding: 0.8rem);
+    @include partial.btn($bg-color: darkgreen, $text-color: #fff, $padding: 0.8rem);
     text-decoration: none;
     text-align: center;
     width: 70vw;
@@ -125,7 +125,7 @@ nav {
   }
 
   #restartBtn {
-    @include btn($bg-color: #2196f3, $text-color: white, $padding: 0.8rem 1.5rem);
+    @include partial.btn($bg-color: #2196f3, $text-color: white, $padding: 0.8rem 1.5rem);
   }
 
 /* Scenarios */
@@ -144,7 +144,7 @@ nav {
 
 /* E-mail */
 .email-screen {
-  @include box-style(#e5e7eb, partial.$green-neon, 20px);
+  @include partial.box-style(#e5e7eb, partial.$green-neon, 20px);
   width: 90%;
   max-width: 260px;
   aspect-ratio: 1/2;
@@ -216,18 +216,18 @@ nav {
 
 /* Lær mere siden */
 .container {
-  @include box-style(partial.$background-color, partial.$green-neon, 12px);
+  @include partial.box-style(partial.$background-color, partial.$green-neon, 12px);
   max-width: 70%;
   margin: 5% auto;
   padding: 2rem;
   font-size: 1.2em;
 
   h1 {
-  @include heading-style(2.3em, partial.$green-neon);
+  @include partial.heading-style(2.3em, partial.$green-neon);
   }
 
 h2{
-  @include heading-style(1.8em, partial.$green-neon);
+  @include partial.heading-style(1.8em, partial.$green-neon);
 }
 
 
@@ -282,5 +282,9 @@ h2{
     flex-direction: row;
     justify-content: center;
     gap: 2rem;
+  }
+  
+  .container{
+    max-width: 90%;
   }
 }

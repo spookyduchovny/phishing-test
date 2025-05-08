@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (lastChoice) {
     const btn = document.getElementById(lastChoice); // Find knappen
     if (btn) {
-      // Simuler klik på den gemte knap for at vise feedback direkte
+      // Simuler klik på den gemte knap for at tage brugeren til hvor de nåede til.
       checkAnswer({ target: btn });
     }
   }
